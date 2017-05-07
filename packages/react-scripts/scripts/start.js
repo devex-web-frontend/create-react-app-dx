@@ -35,8 +35,6 @@ var fs = require('fs');
 var config = require('../config/webpack.config.dev');
 var paths = require('../config/paths');
 
-console.log(config);
-
 var useYarn = fs.existsSync(paths.yarnLockFile);
 var cli = useYarn ? 'yarn' : 'npm';
 var isInteractive = process.stdout.isTTY;
