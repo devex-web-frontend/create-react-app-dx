@@ -1,6 +1,6 @@
 module.exports = {
 	plugins: [
-		require('postcss-cssnex')({
+		require('postcss-cssnext')({
 			browsers: [
 				'>1%',
 				'last 4 versions',
