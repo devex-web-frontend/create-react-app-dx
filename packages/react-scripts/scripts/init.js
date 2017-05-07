@@ -86,7 +86,7 @@ module.exports = function(appPath, appName, verbose, originalDirectory, template
     args = args.concat(reactDeps);
   }
 
-  var dependencies = [ '@types/node', '@types/react', '@types/react-dom', '@types/jest', 'autoprefixer', 'postcss-cssnext'];
+  var dependencies = [ '@types/node', '@types/react', '@types/react-dom', '@types/jest', 'postcss-cssnext'];
   args = args.concat(dependencies);
 
   // Install additional template dependencies, if present
