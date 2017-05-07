@@ -18,6 +18,7 @@ var ManifestPlugin = require('webpack-manifest-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var paths = require('./paths');
 var getClientEnvironment = require('./env');
+var getCustomConfig = require('./webpack.config.custom');
 
 // @remove-on-eject-begin
 // `path` is not used after eject - see https://github.com/facebookincubator/create-react-app/issues/1174
@@ -36,6 +37,8 @@ var shouldUseRelativeAssetPaths = publicPath === './';
 var publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 var env = getClientEnvironment(publicUrl);
+
+var customConfig = getCustomConfig(false);
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
@@ -160,10 +163,10 @@ module.exports = {
       // in the main CSS file.
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css?importLoaders=1!postcss',
-          extractTextPluginOptions
+
+        loader: ExtractTextPlugin.extract.apply(
+	        null,
+	        customConfig.values.CSS_MODULES ? ['style', 'css?modules&importLoaders=1', 'postcss'] : ['style', 'css?importLoaders=1', 'postcss']
         )
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },

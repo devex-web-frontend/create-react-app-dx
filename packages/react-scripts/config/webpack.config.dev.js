@@ -9,7 +9,6 @@
  */
 // @remove-on-eject-end
 'use strict';
-
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -18,6 +17,7 @@ var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
+var getCustomConfig = require('./webpack.config.custom');
 
 // @remove-on-eject-begin
 // `path` is not used after eject - see https://github.com/facebookincubator/create-react-app/issues/1174
@@ -33,6 +33,11 @@ var publicPath = '/';
 var publicUrl = '';
 // Get environment variables to inject into our app.
 var env = getClientEnvironment(publicUrl);
+
+var customConfig = getCustomConfig(false);
+
+console.log('xzcxcvdfvf');
+console.log('asd', customConfig.values.CSS_MODULES);
 
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
@@ -155,7 +160,8 @@ module.exports = {
       // in development "style" loader enables hot editing of CSS.
       {
         test: /\.css$/,
-        loader: 'style!css?importLoaders=1!postcss'
+        loader: customConfig.values.CSS_MODULES ? customConfig.values.CSS_MODULES.dev
+            : 'style!css?importLoaders=1!postcss'
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
