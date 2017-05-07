@@ -36,9 +36,6 @@ var env = getClientEnvironment(publicUrl);
 
 var customConfig = getCustomConfig(false);
 
-console.log('xzcxcvdfvf');
-console.log('asd', customConfig.values.CSS_MODULES);
-
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
