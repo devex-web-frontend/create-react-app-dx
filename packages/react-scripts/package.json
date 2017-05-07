@@ -1,6 +1,6 @@
 {
   "name": "@devex-web-frontend/react-scripts-dx",
-  "version": "1.3.0",
+  "version": "1.3.0-dx.alpha.2",
   "description": "Configuration and scripts for Create React App.",
   "repository": "devex-web-frontend/create-react-app-dx",
   "license": "BSD-3-Clause",
