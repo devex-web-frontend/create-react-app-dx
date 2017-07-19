@@ -10,7 +10,6 @@
 // @remove-on-eject-end
 'use strict';
 
-const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -20,6 +19,7 @@ const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeM
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
+const shared = require('./shared');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -164,6 +164,8 @@ module.exports = {
           /\.gif$/,
           /\.jpe?g$/,
           /\.png$/,
+          /\.scss$/,
+          /\.styl$/,
         ],
         loader: require.resolve('file-loader'),
         options: {
@@ -194,32 +196,24 @@ module.exports = {
       // in development "style" loader enables hot editing of CSS.
       {
         test: /\.css$/,
+        use: [shared.STYLE_LOADER, shared.CSS_LOADER, shared.POSTCSS_LOADER],
+      },
+      {
+        test: /\.scss$/,
         use: [
-          require.resolve('style-loader'),
-          {
-            loader: require.resolve('css-loader'),
-            options: {
-              importLoaders: 1,
-            },
-          },
-          {
-            loader: require.resolve('postcss-loader'),
-            options: {
-              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
-              plugins: () => [
-                require('postcss-flexbugs-fixes'),
-                autoprefixer({
-                  browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9', // React doesn't support IE8 anyway
-                  ],
-                  flexbox: 'no-2009',
-                }),
-              ],
-            },
-          },
+          shared.STYLE_LOADER,
+          shared.CSS_LOADER,
+          shared.POSTCSS_LOADER,
+          shared.SCSS_LOADER,
+        ],
+      },
+      {
+        test: /\.styl$/,
+        use: [
+          shared.STYLE_LOADER,
+          shared.CSS_LOADER,
+          shared.POSTCSS_LOADER,
+          shared.STYLUS_LOADER,
         ],
       },
       // ** STOP ** Are you adding a new loader?
